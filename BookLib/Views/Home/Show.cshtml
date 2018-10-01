@@ -6,7 +6,7 @@
 <h2>ShowBook</h2>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" disabled />
+                <textarea asp-for="Description" class="form-control" style="height: 400px" disabled></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,13 +28,41 @@
                 <input asp-for="Author" class="form-control" disabled />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
-            <div>
+            <div style="margin-bottom: 2em">
                 @ViewBag.User.Email
             </div>
             <div class="form-group">
                 <a href="@Url.Content(Model.DownloadRef)" class="btn btn-lg btn-primary" download>Download</a>
             </div>
         </form>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Comments
+            </div>
+            <div class="panel-body">
+                <form asp-action="Show" method="post">
+                    <input type="hidden" name="Comment.BookId" value="@Model.BookId" />
+                    <div class="form-group">
+                        <textarea name="Comment.Text" style="width: 100%"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-lg btn-primary" value="Leave Comment">
+                    </div>
+                </form>
+                <hr />
+                <table class="table table-striped">
+                    @foreach (var comment in ViewBag.Comments)
+                    {
+                        <tr>
+                            <td>@comment.Text</td>
+                            <td>@comment.Date.ToShortDateString()</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

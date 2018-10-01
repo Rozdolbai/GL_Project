@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,6 +22,8 @@ namespace BookLib.Models
         public int BookId { get; set; }
         public virtual Book Book { get; set; }
 
+        [ForeignKey("User")]
+        public string UserId { get; set; }
         public virtual IdentityUser User { get; set; }
     }
 }
