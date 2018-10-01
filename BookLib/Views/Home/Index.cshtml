@@ -1,0 +1,46 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+
+
+@{
+    ViewData["Title"] = "Books";
+    //bool userIsAdmin = SignInManager.IsSignedIn(User) && User.IsInRole("admin");
+}
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+        <h2>Books</h2>
+
+        @foreach (Book p in ViewBag.Books)
+        {
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    @p.Title
+                </div>
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left media-middle">
+                            <a asp-action="Show" asp-route-id="@p.BookId">
+                                <img class="media-object" style="width:300px; height:150px; object-fit:contain;" src="@Url.Content(p.PictureRef)" alt="@p.BookId">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Author:</th>
+                                    <td>@p.Author</td>
+                                </tr>
+                                <tr>
+                                    <th>Description:</th>
+                                    <td>@p.Description</td>
+                                </tr>
+                            </table>
+                            <a href="@Url.Content(p.DownloadRef)" class="btn btn-primary" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
